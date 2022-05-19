@@ -1,5 +1,5 @@
 {
-  "name": "jobs",
+  "name": "jobs-finder",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -19,8 +19,11 @@
     "@vue/cli-plugin-typescript": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
     "@vue/eslint-config-typescript": "^9.1.0",
+    "axios": "^0.27.2",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
+    "node-sass": "^7.0.1",
+    "sass-loader": "^13.0.0",
     "typescript": "~4.5.5"
   }
 }
