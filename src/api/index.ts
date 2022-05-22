@@ -1,14 +1,23 @@
 import axios from 'axios';
 import { CategoriesResponse, Category, Job, JobsResponse } from '@/types';
+import qs from 'qs';
 const instace = axios.create({
   baseURL: 'https://remotive.com/api',
 });
 
+type queryParams = {
+  limit?: number;
+  category?: string;
+  company_name?: string;
+  search?: string;
+};
+
 const jobsAPI = () => ({
-  async getRemoteJobs(limit = 10): Promise<{ jobs: Job[] }> {
+  async getRemoteJobs(query: queryParams): Promise<{ jobs: Job[] }> {
     try {
+      const queryStrings = qs.stringify(query);
       const { data }: JobsResponse = await instace.get(
-        `/remote-jobs?limit=${limit}`
+        `/remote-jobs?${queryStrings}`
       );
       return data;
     } catch (error) {
