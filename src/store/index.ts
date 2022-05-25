@@ -5,6 +5,7 @@ import { Category, Job } from '../types';
 export type State = {
   limit: number;
   jobs: Job[];
+  jobsCount: number;
   jobsStatus: string;
   categories: Category[];
   job: Job;
@@ -13,6 +14,7 @@ export type State = {
 const state: State = {
   limit: 10,
   jobs: [],
+  jobsCount: 0,
   jobsStatus: 'idle',
   categories: [],
   job: {
@@ -36,6 +38,9 @@ const store = createStore({
     setJobs(state, payload: Job[]) {
       state.jobs = payload;
     },
+    setJobsCount(state, payload: number) {
+      state.jobsCount = payload;
+    },
     setJobsStatus(state, payload: string) {
       state.jobsStatus = payload;
     },
@@ -49,8 +54,9 @@ const store = createStore({
   actions: {
     async getJobs({ commit }, payload) {
       commit('setJobsStatus', 'loading');
-      const { jobs } = await jobsAPI().getRemoteJobs(payload);
-      commit('setJobs', jobs);
+      const data = await jobsAPI().getRemoteJobs(payload);
+      commit('setJobs', data.jobs);
+      commit('setJobsCount', data['job-count']);
       commit('setJobsStatus', 'idle');
     },
     async getCategories({ commit }) {

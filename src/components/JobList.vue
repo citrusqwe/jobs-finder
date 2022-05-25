@@ -55,8 +55,12 @@ export default defineComponent({
     },
   },
   computed: {
-    jobsObject(): { jobs: Job[]; status: string } {
-      return { jobs: store.state.jobs, status: store.state.jobsStatus };
+    jobsObject(): { jobs: Job[]; status: string; jobsCount: number } {
+      return {
+        jobs: store.state.jobs,
+        status: store.state.jobsStatus,
+        jobsCount: store.state.jobsCount,
+      };
     },
   },
 });

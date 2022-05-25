@@ -13,7 +13,9 @@ type queryParams = {
 };
 
 const jobsAPI = () => ({
-  async getRemoteJobs(query: queryParams): Promise<{ jobs: Job[] }> {
+  async getRemoteJobs(
+    query: queryParams
+  ): Promise<{ jobs: Job[]; 'job-count': number }> {
     try {
       const queryStrings = qs.stringify(query);
       const { data }: JobsResponse = await instace.get(

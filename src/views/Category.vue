@@ -6,14 +6,19 @@
 
 <script lang="ts">
 import JobList from '@/components/JobList.vue';
-import router from '@/router';
+import store from '@/store';
 import { defineComponent } from '@vue/runtime-core';
+
 export default defineComponent({
-  name: 'Home',
   components: { JobList },
+  name: 'JobView',
   mounted() {
-    const queryParams = { limit: 50, ...this.$route.query } || { limit: 50 };
-    router.push({ query: queryParams });
+    const queryParams = { limit: 50, category: this.$route.params.slug };
+    store.dispatch('getJobs', queryParams);
+  },
+  unmounted() {
+    const queryParams = { limit: 50, ...this.$route.query };
+    store.dispatch('getJobs', queryParams);
   },
 });
 </script>

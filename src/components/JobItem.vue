@@ -37,9 +37,14 @@
             {{ job.salary }}
           </div>
           <span
-            class="py-[2px] px-2 rounded-2xl border border-chocolate transition-opacity hover:opacity-70"
-            >{{ job.category }}</span
+            class="relative z-10 py-[2px] px-2 rounded-2xl border border-chocolate transition-opacity hover:opacity-70"
           >
+            <router-link
+              :to="`/remote-jobs/${getCategorySlug(job.category) || 'none'}`"
+            >
+              {{ job.category }}
+            </router-link>
+          </span>
         </div>
       </div>
     </div>
@@ -71,9 +76,14 @@
               {{ job.candidate_required_location }}
             </div>
             <span
-              class="py-[2px] px-2 rounded-2xl border border-chocolate transition-opacity hover:opacity-70"
-              >{{ job.category }}</span
+              class="relative z-10 py-[2px] px-2 rounded-2xl border border-chocolate transition-opacity hover:opacity-70"
             >
+              <router-link
+                :to="`/remote-jobs/${getCategorySlug(job.category) || 'none'}`"
+              >
+                {{ job.category }}
+              </router-link>
+            </span>
           </div>
         </div>
       </div>
@@ -102,6 +112,11 @@ export default defineComponent({
   methods: {
     setCurrentJob() {
       store.commit('setJob', this.job);
+    },
+    getCategorySlug(category: string): string {
+      const slug = store.state.categories.find((c) => c.name === category)
+        ?.slug as string;
+      return slug;
     },
   },
 });

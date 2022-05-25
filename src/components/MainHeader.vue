@@ -6,7 +6,7 @@
       </router-link>
       <div>Job Applicants</div>
     </nav>
-    <Hero v-show="showHero" />
+    <Hero />
   </header>
 </template>
 
@@ -17,14 +17,6 @@ import Hero from './Hero.vue';
 export default defineComponent({
   name: 'MainHeader',
   components: { Hero },
-  data() {
-    return {};
-  },
-  computed: {
-    showHero(): boolean {
-      return this.$route.path === '/';
-    },
-  },
 });
 </script>
 

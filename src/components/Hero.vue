@@ -1,6 +1,9 @@
 <template>
   <div class="text-center pb-10">
-    <h1>Want to break up with your office?</h1>
+    <h1 v-if="isCategoryPage">
+      Find a Remote Job in {{ getCategoryBySlug($route.params.slug) }}
+    </h1>
+    <h1 v-else>Want to break up with your office?</h1>
     <p class="mb-6">
       The #2 Remote Work Community, Remote Jobs after
       <a target="_blank" href="https://remotive.com/">Remotive</a>.
@@ -28,12 +31,17 @@
         </form>
       </div>
       <div>
-        <select class="pl-2 outline-none" @change="getJobsByCategory">
+        <select
+          class="pl-2 outline-none"
+          @change="getJobsByCategory"
+          ref="select"
+        >
           <option value="">All Categories</option>
           <option
             v-for="category in categories"
             :value="category.slug"
             :key="category.id"
+            :selected="category.slug === selected"
           >
             {{ category.name }}
           </option>
@@ -48,7 +56,6 @@ import router from '@/router';
 import store from '@/store';
 import { Category } from '@/types';
 import { defineComponent } from '@vue/runtime-core';
-import qs from 'qs';
 
 export default defineComponent({
   name: 'Hero',
@@ -79,6 +86,11 @@ export default defineComponent({
       });
       store.dispatch('getJobs', q);
     },
+    getCategoryBySlug(slug: string | string[]): string {
+      const category = store.state.categories.find((c) => c.slug === slug)
+        ?.name as string;
+      return category;
+    },
   },
 
   computed: {
@@ -87,6 +99,12 @@ export default defineComponent({
     },
     queryParams() {
       return this.$route.query;
+    },
+    isCategoryPage() {
+      return this.$route.path.includes('remote-jobs');
+    },
+    selected() {
+      return this.$route.params.slug;
     },
   },
 });

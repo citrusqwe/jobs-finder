@@ -1,12 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '@/views/Home.vue';
-import JobView from '@/views/JobView.vue';
+import Category from '@/views/Category.vue';
 
 const routes = [
   { path: '/', component: Home },
   {
-    path: '/:id',
-    component: JobView,
+    path: '/remote-jobs/:slug',
+    component: Category,
   },
 ];
 

@@ -37,7 +37,7 @@ $animation-duration: 2.6s;
 
   40%,
   100% {
-    background-position: 535px;
+    background-position: 735px;
   }
 }
 </style>
